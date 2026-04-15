@@ -1,5 +1,7 @@
 export default defineAppConfig({
   pages: [
+    'pages/training-plans/index',
+    'pages/training-plans/create',
     'pages/exercises/index'
   ],
   window: {

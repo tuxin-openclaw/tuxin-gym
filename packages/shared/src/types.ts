@@ -47,3 +47,41 @@ export interface ListResponse<T> {
   items: T[];
   total: number;
 }
+
+// 训练计划周期类型
+export type ScheduleType = 'daily' | 'weekly';
+
+// 训练计划
+export interface TrainingPlan {
+  id: number;
+  name: string;
+  scheduleType: ScheduleType;
+  weekDays?: number[]; // 0-6, 0=周日
+  reminderTime: string; // HH:mm 格式
+  enabled: boolean;
+  exercises?: TrainingPlanExercise[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// 训练计划与动作关联
+export interface TrainingPlanExercise {
+  id: number;
+  trainingPlanId: number;
+  exerciseId: number;
+  exercise?: Exercise;
+  order: number;
+  sets?: number;
+  reps?: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// 创建训练计划 DTO
+export interface CreateTrainingPlanDto {
+  name: string;
+  scheduleType: ScheduleType;
+  weekDays?: number[];
+  reminderTime: string;
+  exerciseIds: number[];
+}

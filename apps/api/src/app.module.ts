@@ -11,9 +11,12 @@ export class AppController {
 import { BodyPartModule } from './modules/body-part/body-part.module';
 import { EquipmentTypeModule } from './modules/equipment-type/equipment-type.module';
 import { ExerciseModule } from './modules/exercise/exercise.module';
+import { TrainingPlanModule } from './modules/training-plan/training-plan.module';
 import { BodyPart } from './entities/body-part.entity';
 import { EquipmentType } from './entities/equipment-type.entity';
 import { Exercise } from './entities/exercise.entity';
+import { TrainingPlan } from './entities/training-plan.entity';
+import { TrainingPlanExercise } from './entities/training-plan-exercise.entity';
 
 @Module({
   controllers: [AppController],
@@ -21,13 +24,14 @@ import { Exercise } from './entities/exercise.entity';
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: './data/gym.db',
-      entities: [BodyPart, EquipmentType, Exercise],
+      entities: [BodyPart, EquipmentType, Exercise, TrainingPlan, TrainingPlanExercise],
       synchronize: true,
       logging: false,
     }),
     BodyPartModule,
     EquipmentTypeModule,
     ExerciseModule,
+    TrainingPlanModule,
   ],
 })
 export class AppModule {}
