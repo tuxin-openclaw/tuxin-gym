@@ -115,48 +115,48 @@ export default class Exercises extends Component<PropsWithChildren, State> {
 
     return (
       <View className="g-page">
-        {/* 头部筛选区域 */}
-        <View className="tw-bg-white tw-p-4 tw-shadow-sm">
-          <Text className="tw-text-lg tw-font-bold tw-text-gray-800 tw-mb-4 tw-block">
-            健身动作
-          </Text>
+        {/* 头部紧凑筛选栏 */}
+        <View className="tw-bg-white tw-shadow-sm">
+          {/* 标题 */}
+          <View className="tw-px-4 tw-pt-3 tw-pb-2">
+            <Text className="tw-text-lg tw-font-bold tw-text-gray-800">健身动作</Text>
+          </View>
 
-          {/* 部位筛选 */}
-          <View className="tw-mb-4">
-            <Text className="tw-text-sm tw-font-medium tw-text-gray-600 tw-mb-2 tw-block">
-              部位筛选
-            </Text>
+          {/* 部位筛选 - 单行紧凑 */}
+          <View className="tw-px-4 tw-pb-2">
             <ScrollView className="tw-flex tw-flex-row" scrollX showScrollbar={false}>
               <View
                 className={classNames(
-                  'tw-px-4 tw-py-2 tw-rounded-full tw-mr-2 tw-flex-shrink-0',
+                  'tw-px-3 tw-py-1.5 tw-rounded-full tw-mr-2 tw-flex-shrink-0 tw-border',
                   selectedBodyPartId === null
-                    ? 'tw-bg-blue-500 tw-text-white'
-                    : 'tw-bg-gray-100 tw-text-gray-600'
+                    ? 'tw-bg-blue-500 tw-border-blue-500'
+                    : 'tw-bg-white tw-border-gray-200'
                 )}
                 onClick={() => this.handleBodyPartSelect(null)}
               >
                 <Text
                   className={classNames(
-                    'tw-text-sm',
+                    'tw-text-xs tw-font-medium',
                     selectedBodyPartId === null ? 'tw-text-white' : 'tw-text-gray-600'
                   )}
                 >
-                  全部
+                  全部部位
                 </Text>
               </View>
               {bodyParts.map((bodyPart) => (
                 <View
                   key={bodyPart.id}
                   className={classNames(
-                    'tw-px-4 tw-py-2 tw-rounded-full tw-mr-2 tw-flex-shrink-0',
-                    selectedBodyPartId === bodyPart.id ? 'tw-bg-blue-500' : 'tw-bg-gray-100'
+                    'tw-px-3 tw-py-1.5 tw-rounded-full tw-mr-2 tw-flex-shrink-0 tw-border',
+                    selectedBodyPartId === bodyPart.id
+                      ? 'tw-bg-blue-500 tw-border-blue-500'
+                      : 'tw-bg-white tw-border-gray-200'
                   )}
                   onClick={() => this.handleBodyPartSelect(bodyPart.id)}
                 >
                   <Text
                     className={classNames(
-                      'tw-text-sm',
+                      'tw-text-xs tw-font-medium',
                       selectedBodyPartId === bodyPart.id ? 'tw-text-white' : 'tw-text-gray-600'
                     )}
                   >
@@ -167,42 +167,41 @@ export default class Exercises extends Component<PropsWithChildren, State> {
             </ScrollView>
           </View>
 
-          {/* 器械筛选 */}
-          <View>
-            <Text className="tw-text-sm tw-font-medium tw-text-gray-600 tw-mb-2 tw-block">
-              器械筛选
-            </Text>
+          {/* 器械筛选 - 单行紧凑 */}
+          <View className="tw-px-4 tw-pb-3">
             <ScrollView className="tw-flex tw-flex-row" scrollX showScrollbar={false}>
               <View
                 className={classNames(
-                  'tw-px-4 tw-py-2 tw-rounded-full tw-mr-2 tw-flex-shrink-0',
-                  selectedEquipmentTypeId === null ? 'tw-bg-green-500' : 'tw-bg-gray-100'
+                  'tw-px-3 tw-py-1.5 tw-rounded-full tw-mr-2 tw-flex-shrink-0 tw-border',
+                  selectedEquipmentTypeId === null
+                    ? 'tw-bg-green-500 tw-border-green-500'
+                    : 'tw-bg-white tw-border-gray-200'
                 )}
                 onClick={() => this.handleEquipmentTypeSelect(null)}
               >
                 <Text
                   className={classNames(
-                    'tw-text-sm',
+                    'tw-text-xs tw-font-medium',
                     selectedEquipmentTypeId === null ? 'tw-text-white' : 'tw-text-gray-600'
                   )}
                 >
-                  全部
+                  全部器械
                 </Text>
               </View>
               {equipmentTypes.map((equipmentType) => (
                 <View
                   key={equipmentType.id}
                   className={classNames(
-                    'tw-px-4 tw-py-2 tw-rounded-full tw-mr-2 tw-flex-shrink-0',
+                    'tw-px-3 tw-py-1.5 tw-rounded-full tw-mr-2 tw-flex-shrink-0 tw-border',
                     selectedEquipmentTypeId === equipmentType.id
-                      ? 'tw-bg-green-500'
-                      : 'tw-bg-gray-100'
+                      ? 'tw-bg-green-500 tw-border-green-500'
+                      : 'tw-bg-white tw-border-gray-200'
                   )}
                   onClick={() => this.handleEquipmentTypeSelect(equipmentType.id)}
                 >
                   <Text
                     className={classNames(
-                      'tw-text-sm',
+                      'tw-text-xs tw-font-medium',
                       selectedEquipmentTypeId === equipmentType.id
                         ? 'tw-text-white'
                         : 'tw-text-gray-600'
