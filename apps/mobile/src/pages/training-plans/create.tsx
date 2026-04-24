@@ -11,6 +11,7 @@ import type {
 } from '@tuxin-gym/shared';
 import { getExercises, getBodyParts, getEquipmentTypes } from '../../services/exercise';
 import { createTrainingPlan } from '../../services/training-plan';
+import SubPageHeader from '../../components/sub-page-header';
 import './create.scss';
 
 const weekDayNames = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
@@ -30,7 +31,7 @@ interface State {
   equipmentTypes: EquipmentType[];
 
   // UI 状态
-  exercisePickerVisible: boolean;
+  exercisePickerExpanded: boolean;
   filterBodyPartId: number | null;
   filterEquipmentTypeId: number | null;
   submitting: boolean;
@@ -190,10 +191,8 @@ export default class CreateTrainingPlan extends Component<PropsWithChildren, Sta
       selectedExerciseIds,
       exercises,
       bodyParts,
-      equipmentTypes,
       exercisePickerExpanded,
       filterBodyPartId,
-      filterEquipmentTypeId,
       submitting,
     } = this.state;
 
@@ -202,14 +201,15 @@ export default class CreateTrainingPlan extends Component<PropsWithChildren, Sta
 
     return (
       <View className="g-page">
+        <SubPageHeader title="新建训练计划" />
         <ScrollView className="tw-p-4">
           {/* 计划名称 */}
-          <View className="tw-bg-white tw-rounded-lg tw-p-4 tw-shadow-sm tw-mb-4">
-            <Text className="tw-text-sm tw-font-medium tw-text-gray-700 tw-block tw-mb-2">
+          <View className="tw-bg-card tw-rounded-card tw-p-4 tw-shadow-card tw-mb-4">
+            <Text className="tw-text-sm tw-font-medium tw-text-ink-2 tw-block tw-mb-2">
               计划名称
             </Text>
             <Input
-              className="tw-border tw-border-gray-200 tw-rounded-lg tw-px-3 tw-py-2 tw-text-sm"
+              className="tw-border tw-border-brand-100 tw-rounded-panel tw-px-3 tw-py-2 tw-text-sm"
               placeholder="例如：周一胸部训练"
               value={name}
               onInput={(e) => this.setState({ name: e.detail.value })}
@@ -217,22 +217,22 @@ export default class CreateTrainingPlan extends Component<PropsWithChildren, Sta
           </View>
 
           {/* 周期选择 */}
-          <View className="tw-bg-white tw-rounded-lg tw-p-4 tw-shadow-sm tw-mb-4">
-            <Text className="tw-text-sm tw-font-medium tw-text-gray-700 tw-block tw-mb-3">
+          <View className="tw-bg-card tw-rounded-card tw-p-4 tw-shadow-card tw-mb-4">
+            <Text className="tw-text-sm tw-font-medium tw-text-ink-2 tw-block tw-mb-3">
               训练周期
             </Text>
             <View className="tw-flex tw-flex-row tw-gap-2">
               <View
                 className={classNames(
                   'tw-flex-1 tw-py-2 tw-rounded-lg tw-text-center',
-                  scheduleType === 'daily' ? 'tw-bg-blue-500' : 'tw-bg-gray-100'
+                  scheduleType === 'daily' ? 'tw-bg-brand-500' : 'tw-bg-page-bg'
                 )}
                 onClick={() => this.setState({ scheduleType: 'daily' })}
               >
                 <Text
                   className={classNames(
                     'tw-text-sm tw-font-medium',
-                    scheduleType === 'daily' ? 'tw-text-white' : 'tw-text-gray-600'
+                    scheduleType === 'daily' ? 'tw-text-white' : 'tw-text-ink-2'
                   )}
                 >
                   每天
@@ -241,14 +241,14 @@ export default class CreateTrainingPlan extends Component<PropsWithChildren, Sta
               <View
                 className={classNames(
                   'tw-flex-1 tw-py-2 tw-rounded-lg tw-text-center',
-                  scheduleType === 'weekly' ? 'tw-bg-blue-500' : 'tw-bg-gray-100'
+                  scheduleType === 'weekly' ? 'tw-bg-brand-500' : 'tw-bg-page-bg'
                 )}
                 onClick={() => this.setState({ scheduleType: 'weekly' })}
               >
                 <Text
                   className={classNames(
                     'tw-text-sm tw-font-medium',
-                    scheduleType === 'weekly' ? 'tw-text-white' : 'tw-text-gray-600'
+                    scheduleType === 'weekly' ? 'tw-text-white' : 'tw-text-ink-2'
                   )}
                 >
                   每周
@@ -259,7 +259,7 @@ export default class CreateTrainingPlan extends Component<PropsWithChildren, Sta
             {/* 星期选择 - 周模式 */}
             {scheduleType === 'weekly' && (
               <View className="tw-mt-4">
-                <Text className="tw-text-xs tw-text-gray-500 tw-block tw-mb-2">
+                <Text className="tw-text-xs tw-text-ink-2 tw-block tw-mb-2">
                   选择星期（可多选）
                 </Text>
                 <View className="tw-flex tw-flex-row tw-flex-wrap tw-gap-2">
@@ -269,15 +269,15 @@ export default class CreateTrainingPlan extends Component<PropsWithChildren, Sta
                       className={classNames(
                         'tw-w-10 tw-h-10 tw-rounded-full tw-flex tw-items-center tw-justify-center',
                         selectedWeekDays.includes(index)
-                          ? 'tw-bg-blue-500'
-                          : 'tw-bg-gray-100'
+                          ? 'tw-bg-brand-500'
+                          : 'tw-bg-page-bg'
                       )}
                       onClick={() => this.toggleWeekDay(index)}
                     >
                       <Text
                         className={classNames(
                           'tw-text-sm',
-                          selectedWeekDays.includes(index) ? 'tw-text-white' : 'tw-text-gray-600'
+                          selectedWeekDays.includes(index) ? 'tw-text-white' : 'tw-text-ink-2'
                         )}
                       >
                         {dayName.charAt(1)}
@@ -290,13 +290,13 @@ export default class CreateTrainingPlan extends Component<PropsWithChildren, Sta
           </View>
 
           {/* 提醒时间 */}
-          <View className="tw-bg-white tw-rounded-lg tw-p-4 tw-shadow-sm tw-mb-4">
-            <Text className="tw-text-sm tw-font-medium tw-text-gray-700 tw-block tw-mb-3">
+          <View className="tw-bg-card tw-rounded-card tw-p-4 tw-shadow-card tw-mb-4">
+            <Text className="tw-text-sm tw-font-medium tw-text-ink-2 tw-block tw-mb-3">
               提醒时间
             </Text>
             <View className="tw-flex tw-flex-row tw-items-center tw-gap-4">
               <View className="tw-flex-1">
-                <Text className="tw-text-xs tw-text-gray-500 tw-block tw-mb-1">时</Text>
+                <Text className="tw-text-xs tw-text-ink-3 tw-block tw-mb-1">时</Text>
                 <Picker
                   mode="selector"
                   range={this.hours}
@@ -305,14 +305,14 @@ export default class CreateTrainingPlan extends Component<PropsWithChildren, Sta
                     this.setState({ reminderHour: this.hours[Number(e.detail.value)] })
                   }
                 >
-                  <View className="tw-border tw-border-gray-200 tw-rounded-lg tw-px-3 tw-py-2 tw-text-center">
+                  <View className="tw-border tw-border-brand-100 tw-rounded-panel tw-px-3 tw-py-2 tw-text-center">
                     <Text className="tw-text-sm">{reminderHour}</Text>
                   </View>
                 </Picker>
               </View>
-              <Text className="tw-text-2xl tw-text-gray-400 tw-self-end tw-mb-1">:</Text>
+              <Text className="tw-text-2xl tw-text-ink-3 tw-self-end tw-mb-1">:</Text>
               <View className="tw-flex-1">
-                <Text className="tw-text-xs tw-text-gray-500 tw-block tw-mb-1">分</Text>
+                <Text className="tw-text-xs tw-text-ink-3 tw-block tw-mb-1">分</Text>
                 <Picker
                   mode="selector"
                   range={this.minutes}
@@ -321,7 +321,7 @@ export default class CreateTrainingPlan extends Component<PropsWithChildren, Sta
                     this.setState({ reminderMinute: this.minutes[Number(e.detail.value)] })
                   }
                 >
-                  <View className="tw-border tw-border-gray-200 tw-rounded-lg tw-px-3 tw-py-2 tw-text-center">
+                  <View className="tw-border tw-border-brand-100 tw-rounded-panel tw-px-3 tw-py-2 tw-text-center">
                     <Text className="tw-text-sm">{reminderMinute}</Text>
                   </View>
                 </Picker>
@@ -330,13 +330,13 @@ export default class CreateTrainingPlan extends Component<PropsWithChildren, Sta
           </View>
 
           {/* 已选动作 */}
-          <View className="tw-bg-white tw-rounded-lg tw-p-4 tw-shadow-sm tw-mb-4">
+          <View className="tw-bg-card tw-rounded-card tw-p-4 tw-shadow-card tw-mb-4">
             <View className="tw-flex tw-flex-row tw-items-center tw-justify-between tw-mb-3">
-              <Text className="tw-text-sm tw-font-medium tw-text-gray-700">
+              <Text className="tw-text-sm tw-font-medium tw-text-ink-2">
                 已选动作 ({selectedExerciseIds.length})
               </Text>
               <Text
-                className="tw-text-sm tw-text-blue-500"
+                className="tw-text-sm tw-text-brand-600"
                 onClick={() => this.setState({ exercisePickerExpanded: !exercisePickerExpanded })}
               >
                 {exercisePickerExpanded ? '收起' : '添加/编辑'}
@@ -348,18 +348,18 @@ export default class CreateTrainingPlan extends Component<PropsWithChildren, Sta
                 {selectedExercises.map((exercise) => (
                   <View
                     key={exercise.id}
-                    className="tw-flex tw-flex-row tw-items-center tw-justify-between tw-bg-gray-50 tw-p-3 tw-rounded-lg"
+                    className="tw-flex tw-flex-row tw-items-center tw-justify-between tw-bg-card-soft tw-p-3 tw-rounded-panel"
                   >
                     <View className="tw-flex-1">
-                      <Text className="tw-text-sm tw-font-medium tw-text-gray-800 tw-block">
+                      <Text className="tw-text-sm tw-font-medium tw-text-ink-1 tw-block">
                         {exercise.name}
                       </Text>
                       <View className="tw-flex tw-flex-row tw-gap-2 tw-mt-1">
-                        <Text className="tw-text-xs tw-text-gray-400">
+                        <Text className="tw-text-xs tw-text-ink-3">
                           {this.getBodyPartName(exercise.bodyPartId)}
                         </Text>
-                        <Text className="tw-text-xs tw-text-gray-400">·</Text>
-                        <Text className="tw-text-xs tw-text-gray-400">
+                        <Text className="tw-text-xs tw-text-ink-3">·</Text>
+                        <Text className="tw-text-xs tw-text-ink-3">
                           {this.getEquipmentTypeName(exercise.equipmentTypeId)}
                         </Text>
                       </View>
@@ -368,25 +368,25 @@ export default class CreateTrainingPlan extends Component<PropsWithChildren, Sta
                       className="tw-ml-2 tw-w-6 tw-h-6 tw-flex tw-items-center tw-justify-center"
                       onClick={() => this.toggleExercise(exercise.id)}
                     >
-                      <Text className="tw-text-gray-400">×</Text>
+                      <Text className="tw-text-ink-3">×</Text>
                     </View>
                   </View>
                 ))}
               </View>
             ) : (
               <View
-                className="tw-border tw-border-dashed tw-border-gray-300 tw-rounded-lg tw-py-8 tw-text-center"
+                className="tw-border tw-border-dashed tw-border-brand-100 tw-rounded-panel tw-py-8 tw-text-center"
                 onClick={() => this.setState({ exercisePickerExpanded: true })}
               >
-                <Text className="tw-text-gray-400">点击选择动作</Text>
+                <Text className="tw-text-ink-3">点击选择动作</Text>
               </View>
             )}
           </View>
 
           {/* 动作选择器 */}
           {exercisePickerExpanded && (
-            <View className="tw-bg-white tw-rounded-lg tw-p-4 tw-shadow-sm tw-mb-4">
-              <Text className="tw-text-sm tw-font-medium tw-text-gray-700 tw-block tw-mb-3">
+            <View className="tw-bg-card tw-rounded-card tw-p-4 tw-shadow-card tw-mb-4">
+              <Text className="tw-text-sm tw-font-medium tw-text-ink-2 tw-block tw-mb-3">
                 选择动作
               </Text>
 
@@ -397,15 +397,15 @@ export default class CreateTrainingPlan extends Component<PropsWithChildren, Sta
                     className={classNames(
                       'tw-px-3 tw-py-1.5 tw-rounded-full tw-mr-2 tw-flex-shrink-0 tw-border',
                       filterBodyPartId === null
-                        ? 'tw-bg-blue-500 tw-border-blue-500'
-                        : 'tw-bg-white tw-border-gray-200'
+                        ? 'tw-bg-brand-500 tw-border-brand-500'
+                        : 'tw-bg-card tw-border-brand-100'
                     )}
                     onClick={() => this.setState({ filterBodyPartId: null })}
                   >
                     <Text
                       className={classNames(
                         'tw-text-xs tw-font-medium',
-                        filterBodyPartId === null ? 'tw-text-white' : 'tw-text-gray-600'
+                        filterBodyPartId === null ? 'tw-text-white' : 'tw-text-ink-2'
                       )}
                     >
                       全部部位
@@ -417,15 +417,15 @@ export default class CreateTrainingPlan extends Component<PropsWithChildren, Sta
                       className={classNames(
                         'tw-px-3 tw-py-1.5 tw-rounded-full tw-mr-2 tw-flex-shrink-0 tw-border',
                         filterBodyPartId === bodyPart.id
-                          ? 'tw-bg-blue-500 tw-border-blue-500'
-                          : 'tw-bg-white tw-border-gray-200'
+                          ? 'tw-bg-brand-500 tw-border-brand-500'
+                          : 'tw-bg-card tw-border-brand-100'
                       )}
                       onClick={() => this.setState({ filterBodyPartId: bodyPart.id })}
                     >
                       <Text
                         className={classNames(
                           'tw-text-xs tw-font-medium',
-                          filterBodyPartId === bodyPart.id ? 'tw-text-white' : 'tw-text-gray-600'
+                          filterBodyPartId === bodyPart.id ? 'tw-text-white' : 'tw-text-ink-2'
                         )}
                       >
                         {bodyPart.name}
@@ -441,8 +441,8 @@ export default class CreateTrainingPlan extends Component<PropsWithChildren, Sta
                   <View
                     key={exercise.id}
                     className={classNames(
-                      'tw-flex tw-flex-row tw-items-center tw-p-3 tw-border-b tw-border-gray-100',
-                      selectedExerciseIds.includes(exercise.id) ? 'tw-bg-blue-50' : ''
+                      'tw-flex tw-flex-row tw-items-center tw-p-3 tw-border-b tw-border-brand-50',
+                      selectedExerciseIds.includes(exercise.id) ? 'tw-bg-brand-50' : ''
                     )}
                     onClick={() => this.toggleExercise(exercise.id)}
                   >
@@ -450,8 +450,8 @@ export default class CreateTrainingPlan extends Component<PropsWithChildren, Sta
                       className={classNames(
                         'tw-w-5 tw-h-5 tw-rounded tw-border tw-mr-3 tw-flex tw-items-center tw-justify-center',
                         selectedExerciseIds.includes(exercise.id)
-                          ? 'tw-bg-blue-500 tw-border-blue-500'
-                          : 'tw-border-gray-300'
+                          ? 'tw-bg-brand-500 tw-border-brand-500'
+                          : 'tw-border-brand-100'
                       )}
                     >
                       {selectedExerciseIds.includes(exercise.id) && (
@@ -459,15 +459,15 @@ export default class CreateTrainingPlan extends Component<PropsWithChildren, Sta
                       )}
                     </View>
                     <View className="tw-flex-1">
-                      <Text className="tw-text-sm tw-font-medium tw-text-gray-800 tw-block">
+                      <Text className="tw-text-sm tw-font-medium tw-text-ink-1 tw-block">
                         {exercise.name}
                       </Text>
                       <View className="tw-flex tw-flex-row tw-gap-2 tw-mt-1">
-                        <Text className="tw-text-xs tw-text-gray-400">
+                        <Text className="tw-text-xs tw-text-ink-3">
                           {this.getBodyPartName(exercise.bodyPartId)}
                         </Text>
-                        <Text className="tw-text-xs tw-text-gray-400">·</Text>
-                        <Text className="tw-text-xs tw-text-gray-400">
+                        <Text className="tw-text-xs tw-text-ink-3">·</Text>
+                        <Text className="tw-text-xs tw-text-ink-3">
                           {this.getEquipmentTypeName(exercise.equipmentTypeId)}
                         </Text>
                       </View>
@@ -480,11 +480,11 @@ export default class CreateTrainingPlan extends Component<PropsWithChildren, Sta
         </ScrollView>
 
         {/* 底部保存按钮 */}
-        <View className="tw-absolute tw-bottom-0 tw-left-0 tw-right-0 tw-bg-white tw-p-4 tw-shadow-lg tw-border-t tw-border-gray-100">
+        <View className="tw-absolute tw-bottom-0 tw-left-0 tw-right-0 tw-bg-card tw-p-4 tw-shadow-card tw-border-t tw-border-brand-50">
           <View
             className={classNames(
               'tw-py-3 tw-rounded-lg tw-text-center',
-              submitting ? 'tw-bg-gray-300' : 'tw-bg-blue-500'
+              submitting ? 'tw-bg-ink-3' : 'tw-bg-brand-500'
             )}
             onClick={!submitting ? this.handleSubmit : undefined}
           >

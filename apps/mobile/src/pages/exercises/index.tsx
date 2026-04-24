@@ -4,6 +4,7 @@ import Taro from '@tarojs/taro';
 import classNames from 'classnames';
 import type { Exercise, BodyPart, EquipmentType } from '@tuxin-gym/shared';
 import { getExercises, getBodyParts, getEquipmentTypes } from '../../services/exercise';
+import TabBar from '../../components/tab-bar';
 import './index.scss';
 
 interface State {
@@ -107,21 +108,22 @@ export default class Exercises extends Component<PropsWithChildren, State> {
 
     if (loading) {
       return (
-        <View className="tw-flex tw-items-center tw-justify-center tw-h-screen">
-          <Text className="tw-text-gray-500">加载中...</Text>
+        <View className="g-page">
+          <View className="tw-flex tw-items-center tw-justify-center tw-h-[60vh]">
+            <Text className="tw-text-ink-2">加载中...</Text>
+          </View>
+          <TabBar current="exercises" />
         </View>
       );
     }
 
     return (
       <View className="g-page">
+        <View className="tw-px-4 tw-pt-4 tw-pb-2">
+          <Text className="tw-text-xl tw-font-bold tw-text-ink-1">健身动作</Text>
+        </View>
         {/* 头部紧凑筛选栏 */}
-        <View className="tw-bg-white tw-shadow-sm">
-          {/* 标题 */}
-          <View className="tw-px-4 tw-pt-3 tw-pb-2">
-            <Text className="tw-text-lg tw-font-bold tw-text-gray-800">健身动作</Text>
-          </View>
-
+        <View className="tw-bg-page-bg">
           {/* 部位筛选 - 单行紧凑 */}
           <View className="tw-px-4 tw-pb-2">
             <ScrollView className="tw-flex tw-flex-row" scrollX showScrollbar={false}>
@@ -129,15 +131,15 @@ export default class Exercises extends Component<PropsWithChildren, State> {
                 className={classNames(
                   'tw-px-3 tw-py-1.5 tw-rounded-full tw-mr-2 tw-flex-shrink-0 tw-border',
                   selectedBodyPartId === null
-                    ? 'tw-bg-blue-500 tw-border-blue-500'
-                    : 'tw-bg-white tw-border-gray-200'
+                    ? 'tw-bg-brand-500 tw-border-brand-500'
+                    : 'tw-bg-card tw-border-brand-100'
                 )}
                 onClick={() => this.handleBodyPartSelect(null)}
               >
                 <Text
                   className={classNames(
                     'tw-text-xs tw-font-medium',
-                    selectedBodyPartId === null ? 'tw-text-white' : 'tw-text-gray-600'
+                    selectedBodyPartId === null ? 'tw-text-white' : 'tw-text-ink-2'
                   )}
                 >
                   全部部位
@@ -149,15 +151,15 @@ export default class Exercises extends Component<PropsWithChildren, State> {
                   className={classNames(
                     'tw-px-3 tw-py-1.5 tw-rounded-full tw-mr-2 tw-flex-shrink-0 tw-border',
                     selectedBodyPartId === bodyPart.id
-                      ? 'tw-bg-blue-500 tw-border-blue-500'
-                      : 'tw-bg-white tw-border-gray-200'
+                      ? 'tw-bg-brand-500 tw-border-brand-500'
+                      : 'tw-bg-card tw-border-brand-100'
                   )}
                   onClick={() => this.handleBodyPartSelect(bodyPart.id)}
                 >
                   <Text
                     className={classNames(
                       'tw-text-xs tw-font-medium',
-                      selectedBodyPartId === bodyPart.id ? 'tw-text-white' : 'tw-text-gray-600'
+                      selectedBodyPartId === bodyPart.id ? 'tw-text-white' : 'tw-text-ink-2'
                     )}
                   >
                     {bodyPart.name}
@@ -174,15 +176,15 @@ export default class Exercises extends Component<PropsWithChildren, State> {
                 className={classNames(
                   'tw-px-3 tw-py-1.5 tw-rounded-full tw-mr-2 tw-flex-shrink-0 tw-border',
                   selectedEquipmentTypeId === null
-                    ? 'tw-bg-green-500 tw-border-green-500'
-                    : 'tw-bg-white tw-border-gray-200'
+                    ? 'tw-bg-brand-500 tw-border-brand-500'
+                    : 'tw-bg-card tw-border-brand-100'
                 )}
                 onClick={() => this.handleEquipmentTypeSelect(null)}
               >
                 <Text
                   className={classNames(
                     'tw-text-xs tw-font-medium',
-                    selectedEquipmentTypeId === null ? 'tw-text-white' : 'tw-text-gray-600'
+                    selectedEquipmentTypeId === null ? 'tw-text-white' : 'tw-text-ink-2'
                   )}
                 >
                   全部器械
@@ -194,8 +196,8 @@ export default class Exercises extends Component<PropsWithChildren, State> {
                   className={classNames(
                     'tw-px-3 tw-py-1.5 tw-rounded-full tw-mr-2 tw-flex-shrink-0 tw-border',
                     selectedEquipmentTypeId === equipmentType.id
-                      ? 'tw-bg-green-500 tw-border-green-500'
-                      : 'tw-bg-white tw-border-gray-200'
+                      ? 'tw-bg-brand-500 tw-border-brand-500'
+                      : 'tw-bg-card tw-border-brand-100'
                   )}
                   onClick={() => this.handleEquipmentTypeSelect(equipmentType.id)}
                 >
@@ -204,7 +206,7 @@ export default class Exercises extends Component<PropsWithChildren, State> {
                       'tw-text-xs tw-font-medium',
                       selectedEquipmentTypeId === equipmentType.id
                         ? 'tw-text-white'
-                        : 'tw-text-gray-600'
+                        : 'tw-text-ink-2'
                     )}
                   >
                     {equipmentType.name}
@@ -216,38 +218,38 @@ export default class Exercises extends Component<PropsWithChildren, State> {
         </View>
 
         {/* 动作列表 */}
-        <ScrollView className="tw-p-4">
+        <ScrollView className="tw-px-4 tw-pb-10">
           {exercises.length === 0 ? (
             <View className="tw-flex tw-items-center tw-justify-center tw-py-12">
-              <Text className="tw-text-gray-400">暂无动作</Text>
+              <Text className="tw-text-ink-3">暂无动作</Text>
             </View>
           ) : (
             <View className="tw-space-y-3">
               {exercises.map((exercise) => (
-                <View key={exercise.id} className="tw-bg-white tw-rounded-lg tw-p-4 tw-shadow-sm">
+                <View key={exercise.id} className="tw-bg-card tw-rounded-card tw-p-4 tw-shadow-card">
                   <View className="tw-flex tw-flex-row tw-justify-between tw-items-start tw-mb-2">
                     <View className="tw-flex-1">
-                      <Text className="tw-text-base tw-font-semibold tw-text-gray-800 tw-block">
+                      <Text className="tw-text-base tw-font-semibold tw-text-ink-1 tw-block">
                         {exercise.name}
                       </Text>
-                      <Text className="tw-text-xs tw-text-gray-400 tw-mt-1 tw-block">
+                      <Text className="tw-text-xs tw-text-ink-3 tw-mt-1 tw-block">
                         {exercise.nameEn}
                       </Text>
                     </View>
                   </View>
                   {exercise.description && (
-                    <Text className="tw-text-sm tw-text-gray-600 tw-mb-3 tw-line-clamp-2">
+                    <Text className="tw-text-sm tw-text-ink-2 tw-mb-3 tw-line-clamp-2">
                       {exercise.description}
                     </Text>
                   )}
                   <View className="tw-flex tw-flex-row tw-gap-2">
-                    <View className="tw-bg-blue-50 tw-px-3 tw-py-1 tw-rounded-full">
-                      <Text className="tw-text-xs tw-text-blue-600">
+                    <View className="tw-bg-brand-50 tw-px-3 tw-py-1 tw-rounded-full">
+                      <Text className="tw-text-xs tw-text-brand-700">
                         {this.getBodyPartName(exercise.bodyPartId)}
                       </Text>
                     </View>
-                    <View className="tw-bg-green-50 tw-px-3 tw-py-1 tw-rounded-full">
-                      <Text className="tw-text-xs tw-text-green-600">
+                    <View className="tw-bg-page-bg tw-px-3 tw-py-1 tw-rounded-full">
+                      <Text className="tw-text-xs tw-text-ink-2">
                         {this.getEquipmentTypeName(exercise.equipmentTypeId)}
                       </Text>
                     </View>
@@ -257,6 +259,7 @@ export default class Exercises extends Component<PropsWithChildren, State> {
             </View>
           )}
         </ScrollView>
+        <TabBar current="exercises" />
       </View>
     );
   }

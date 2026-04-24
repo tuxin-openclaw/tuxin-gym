@@ -3,6 +3,7 @@ import { View, Text, ScrollView } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import type { TrainingPlan, ScheduleType } from '@tuxin-gym/shared';
 import { getTrainingPlans } from '../../services/training-plan';
+import TabBar from '../../components/tab-bar';
 import './index.scss';
 
 const weekDayNames = ['日', '一', '二', '三', '四', '五', '六'];
@@ -62,19 +63,21 @@ export default class TrainingPlans extends Component<PropsWithChildren, State> {
 
     if (loading) {
       return (
-        <View className="tw-flex tw-items-center tw-justify-center tw-h-screen">
-          <Text className="tw-text-gray-500">加载中...</Text>
+        <View className="g-page">
+          <View className="tw-flex tw-items-center tw-justify-center tw-h-[60vh]">
+            <Text className="tw-text-ink-2">加载中...</Text>
+          </View>
+          <TabBar current="training" />
         </View>
       );
     }
 
     return (
       <View className="g-page">
-        {/* 头部 */}
-        <View className="tw-bg-white tw-shadow-sm tw-p-4 tw-flex tw-flex-row tw-items-center tw-justify-between">
-          <Text className="tw-text-lg tw-font-bold tw-text-gray-800">训练计划</Text>
+        <View className="tw-flex tw-flex-row tw-items-center tw-justify-between tw-px-4 tw-pt-4 tw-pb-2">
+          <Text className="tw-text-xl tw-font-bold tw-text-ink-1">训练计划</Text>
           <View
-            className="tw-bg-blue-500 tw-px-4 tw-py-2 tw-rounded-full"
+            className="tw-bg-brand-500 tw-px-4 tw-py-2 tw-rounded-full tw-shadow-soft"
             onClick={this.goToCreate}
           >
             <Text className="tw-text-white tw-text-sm tw-font-medium">+ 新建计划</Text>
@@ -82,14 +85,14 @@ export default class TrainingPlans extends Component<PropsWithChildren, State> {
         </View>
 
         {/* 计划列表 */}
-        <ScrollView className="tw-p-4">
+        <ScrollView className="tw-px-4 tw-pb-10">
           {plans.length === 0 ? (
             <View className="tw-flex tw-items-center tw-justify-center tw-py-16">
               <View className="tw-text-center">
-                <Text className="tw-text-gray-400 tw-text-6xl tw-block tw-mb-4">📋</Text>
-                <Text className="tw-text-gray-400 tw-block tw-mb-4">暂无训练计划</Text>
+                <Text className="tw-text-ink-3 tw-text-6xl tw-block tw-mb-4">📋</Text>
+                <Text className="tw-text-ink-3 tw-block tw-mb-4">暂无训练计划</Text>
                 <View
-                  className="tw-bg-blue-500 tw-px-6 tw-py-2 tw-rounded-full tw-inline-block"
+                  className="tw-bg-brand-500 tw-px-6 tw-py-2 tw-rounded-full tw-inline-block"
                   onClick={this.goToCreate}
                 >
                   <Text className="tw-text-white tw-text-sm">创建第一个计划</Text>
@@ -101,31 +104,31 @@ export default class TrainingPlans extends Component<PropsWithChildren, State> {
               {plans.map((plan) => (
                 <View
                   key={plan.id}
-                  className="tw-bg-white tw-rounded-lg tw-p-4 tw-shadow-sm"
+                  className="tw-bg-card tw-rounded-card tw-p-4 tw-shadow-card"
                 >
                   <View className="tw-flex tw-flex-row tw-items-start tw-justify-between tw-mb-3">
                     <View className="tw-flex-1">
-                      <Text className="tw-text-base tw-font-semibold tw-text-gray-800 tw-block">
+                      <Text className="tw-text-base tw-font-semibold tw-text-ink-1 tw-block">
                         {plan.name}
                       </Text>
                     </View>
                     {plan.enabled && (
-                      <View className="tw-bg-green-100 tw-px-2 tw-py-1 tw-rounded">
-                        <Text className="tw-text-green-600 tw-text-xs">已启用</Text>
+                      <View className="tw-bg-brand-50 tw-px-2 tw-py-1 tw-rounded-full">
+                        <Text className="tw-text-brand-700 tw-text-xs">已启用</Text>
                       </View>
                     )}
                   </View>
 
                   <View className="tw-flex tw-flex-row tw-items-center tw-gap-4 tw-mb-3">
                     <View className="tw-flex tw-flex-row tw-items-center tw-gap-1">
-                      <Text className="tw-text-gray-400 tw-text-base">📅</Text>
-                      <Text className="tw-text-sm tw-text-gray-600">
+                      <Text className="tw-text-ink-3 tw-text-base">📅</Text>
+                      <Text className="tw-text-sm tw-text-ink-2">
                         {this.getScheduleDisplay(plan.scheduleType, plan.weekDays)}
                       </Text>
                     </View>
                     <View className="tw-flex tw-flex-row tw-items-center tw-gap-1">
-                      <Text className="tw-text-gray-400 tw-text-base">⏰</Text>
-                      <Text className="tw-text-sm tw-text-gray-600">{plan.reminderTime}</Text>
+                      <Text className="tw-text-ink-3 tw-text-base">⏰</Text>
+                      <Text className="tw-text-sm tw-text-ink-2">{plan.reminderTime}</Text>
                     </View>
                   </View>
 
@@ -134,16 +137,16 @@ export default class TrainingPlans extends Component<PropsWithChildren, State> {
                       {plan.exercises.slice(0, 4).map((planExercise) => (
                         <View
                           key={planExercise.id}
-                          className="tw-bg-gray-100 tw-px-2 tw-py-1 tw-rounded"
+                          className="tw-bg-card-soft tw-px-2 tw-py-1 tw-rounded-full"
                         >
-                          <Text className="tw-text-xs tw-text-gray-600">
+                          <Text className="tw-text-xs tw-text-ink-2">
                             {planExercise.exercise?.name}
                           </Text>
                         </View>
                       ))}
                       {plan.exercises.length > 4 && (
-                        <View className="tw-bg-gray-50 tw-px-2 tw-py-1 tw-rounded">
-                          <Text className="tw-text-xs tw-text-gray-400">
+                        <View className="tw-bg-page-bg tw-px-2 tw-py-1 tw-rounded-full">
+                          <Text className="tw-text-xs tw-text-ink-3">
                             +{plan.exercises.length - 4}
                           </Text>
                         </View>
@@ -155,6 +158,7 @@ export default class TrainingPlans extends Component<PropsWithChildren, State> {
             </View>
           )}
         </ScrollView>
+        <TabBar current="training" />
       </View>
     );
   }

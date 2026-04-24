@@ -1,0 +1,262 @@
+.home {
+  padding: 56px 24px 180px;
+}
+
+.home__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.home__title {
+  font-size: 48px;
+  line-height: 1.2;
+}
+
+.home__subtitle {
+  font-size: 26px;
+  display: block;
+}
+
+.home__menu {
+  width: 104px;
+  height: 64px;
+  border-radius: 32px;
+  border: 1px solid #e2e7f3;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--g-color-text-2);
+  box-shadow: var(--g-shadow-soft);
+}
+
+.home__hero {
+  border-radius: 32px;
+  background: linear-gradient(135deg, #dbe8ff, #c7d8f7 70%);
+  padding: 20px 38px 16px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.home__hero-title {
+  font-size: 36px;
+  line-height: 1.2;
+  color: var(--g-color-text-1);
+  font-weight: 700;
+  display: block;
+}
+
+.home__hero-desc {
+  font-size: 28px;
+  color: var(--g-color-text-2);
+  margin-top: 16px;
+}
+
+.home__hero-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 36px;
+  font-size: 28px;
+  margin-top: 30px;
+}
+
+.home__hero-figure {
+  width: 280px;
+  height: 280px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 30%, #ffffff, #c6d6f5 72%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 132px;
+  color: #3f5f95;
+}
+
+.home__section {
+  margin-top: 24px;
+}
+
+.home__section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.home__section-title {
+  font-size: 32px;
+}
+
+.home__section-link {
+  font-size: 26px;
+  color: var(--g-color-text-3);
+}
+
+.home__stats {
+  padding: 24px;
+  &-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  &-title {
+    font-size: 28px;
+  }
+
+  &-link {
+    font-size: 24px;
+    color: var(--g-color-text-3);
+  }
+}
+
+.home__stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.home__stat-item {
+  text-align: center;
+}
+
+.home__stat-icon {
+  font-size: 46px;
+  display: block;
+}
+
+.home__stat-label {
+  font-size: 24px;
+  color: var(--g-color-text-2);
+}
+
+.home__stat-value {
+  font-size: 38px;
+  color: var(--g-color-text-1);
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+.home__stat-unit {
+  font-size: 24px;
+  color: var(--g-color-text-3);
+  margin-left: 6px;
+}
+
+.home__quick-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.home__quick-item {
+  padding: 20px 14px;
+  text-align: center;
+}
+
+.home__quick-badge {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: #fff;
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.home__quick-icon {
+  display: block;
+  width: 76px;
+  height: 76px;
+  line-height: 76px;
+  text-align: center;
+  font-size: 34px;
+}
+
+.home__quick-name {
+  font-size: 28px;
+  color: var(--g-color-text-1);
+  font-weight: 600;
+}
+
+.home__quick-tip {
+  display: block;
+  font-size: 22px;
+  color: var(--g-color-text-3);
+}
+
+.home__records {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.home__record-item {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.home__record-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.home__record-dot {
+  width: 62px;
+  height: 62px;
+  border-radius: 31px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: #fff;
+  font-size: 30px;
+}
+
+.home__record-icon {
+  display: block;
+  width: 62px;
+  height: 62px;
+  line-height: 62px;
+  text-align: center;
+  font-size: 28px;
+}
+
+.home__record-name {
+  font-size: 26px;
+  color: var(--g-color-text-1);
+}
+
+.home__record-time {
+  font-size: 22px;
+  color: var(--g-color-text-3);
+}
+
+.home__record-energy {
+  font-size: 32px;
+  color: var(--g-color-text-1);
+  font-weight: 700;
+}
+
+.home__record-energy-unit {
+  color: var(--g-color-text-3);
+  font-size: 24px;
+  margin-left: 6px;
+}
+
+
