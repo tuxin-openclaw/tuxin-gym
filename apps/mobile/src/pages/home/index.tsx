@@ -1,220 +1,140 @@
-import { View, Text } from "@tarojs/components";
-import Taro from "@tarojs/taro";
-import TabBar from "../../components/tab-bar";
-import "./index.scss";
+import Taro from '@tarojs/taro';
+import { View, Text, Image } from '@tarojs/components';
 
-type QuickAction = {
-  name: string;
-  tip: string;
-  icon: string;
-  color: string;
-  route?: string;
-};
+import AppTabBar from '../../components/AppTabBar';
+import coachDog from '../../assets/coach-dog.png';
+import {
+  calendarWeek,
+  quickActions,
+  userProfile,
+  weeklyGoal,
+  weeklyTrend,
+  workoutRecords,
+} from '../../data/mock';
 
-type RecentRecord = {
-  name: string;
-  time: string;
-  duration: string;
-  kcal: number;
-  icon: string;
-  color: string;
-};
+import './index.scss';
 
-const quickActions: QuickAction[] = [
-  {
-    name: "训练计划",
-    tip: "定制专属计划",
-    icon: "📋",
-    color: "#4c8dff",
-    route: "/pages/training-plans/index",
-  },
-  {
-    name: "动作库",
-    tip: "1000+动作",
-    icon: "🏋️",
-    color: "#46cb87",
-    route: "/pages/exercises/index",
-  },
-  {
-    name: "数据统计",
-    tip: "查看进步曲线",
-    icon: "🕒",
-    color: "#8a65ec",
-  },
-  {
-    name: "体重记录",
-    tip: "记录体重变化",
-    icon: "🧡",
-    color: "#f3973d",
-  },
-];
+const latestRecord = workoutRecords[0];
 
-const recentRecords: RecentRecord[] = [
-  {
-    name: "胸部 + 三头训练",
-    time: "5月20日 19:00",
-    duration: "45分钟",
-    kcal: 368,
-    icon: "🏃",
-    color: "#46cb87",
-  },
-  {
-    name: "背部训练",
-    time: "5月18日 18:30",
-    duration: "50分钟",
-    kcal: 412,
-    icon: "🧎",
-    color: "#4c8dff",
-  },
-  {
-    name: "腿部训练",
-    time: "5月16日 19:15",
-    duration: "60分钟",
-    kcal: 521,
-    icon: "🦵",
-    color: "#f3973d",
-  },
-];
-
-const HomePage = () => {
-  const jumpTo = (route?: string) => {
-    if (!route) {
-      Taro.showToast({ title: "功能开发中", icon: "none" });
-      return;
-    }
-
-    Taro.redirectTo({ url: route });
-  };
+export default function HomePage() {
+  const goCreate = () => Taro.navigateTo({ url: '/pages/record-create/index' });
 
   return (
-    <View className="g-page home g-safe-bottom">
-      <View className="home__header">
-        <View>
-          <Text className="home__title g-title">健身记录</Text>
-          <Text className="home__subtitle g-subtitle">记录每一次进步 💪</Text>
+    <View className='app-page home-page'>
+      <View className='home-hero'>
+        <View className='home-hero__copy'>
+          <Text className='home-hero__title'>
+            {userProfile.greeting}，{userProfile.name} 👋
+          </Text>
+          <Text className='home-hero__subtitle'>今天也要动一动呀！</Text>
+        </View>
+        <View className='home-bell'>
+          <View className='home-bell__dot' />
         </View>
       </View>
 
-      <View className="home__hero">
-        <View>
-          <Text className="home__hero-title">Hi，今天也要加油呀！</Text>
-          <Text className="home__hero-desc">自律给我自由</Text>
-          <View
-            className="home__hero-btn g-btn-primary"
-            onClick={() => jumpTo("/pages/training-plans/index")}
-          >
-            <Text>开始训练 ▶</Text>
+      <View className='coach-zone'>
+        <Image className='coach-zone__dog' src={coachDog} mode='aspectFill' />
+        <View className='coach-zone__bubble'>坚持记录，你会看到更好的自己！</View>
+        <View className='coach-zone__shape shape-a' />
+        <View className='coach-zone__shape shape-b' />
+      </View>
+
+      <View className='app-card summary-card'>
+        <View className='summary-block'>
+          <Text className='summary-block__label'>本周训练</Text>
+          <View className='summary-block__number'>
+            <Text>3</Text>
+            <Text className='summary-block__unit'>次</Text>
+          </View>
+          <Text className='summary-block__hint'>目标 {weeklyGoal} 次</Text>
+          <View className='summary-progress'>
+            <View className='summary-progress__bar' />
           </View>
         </View>
-        <View className="home__hero-figure">
-          <Text>🏋️‍♀️</Text>
-        </View>
-      </View>
 
-      <View className="home__section">
-        <View className="home__stats g-card">
-          <View className="home__stats-head">
-            <Text className="home__stats-title g-title">今日数据</Text>
-            <Text className="home__stats-link">查看更多 〉</Text>
+        <View className='summary-block'>
+          <Text className='summary-block__label'>本月训练</Text>
+          <View className='summary-block__number'>
+            <Text>8</Text>
+            <Text className='summary-block__unit'>次</Text>
           </View>
-          <View className="home__stats-grid">
-            <View className="home__stat-item">
-              <Text className="home__stat-icon">🔥</Text>
-              <Text className="home__stat-label">训练时长</Text>
-              <View>
-                <Text className="home__stat-value">45</Text>
-                <Text className="home__stat-unit">分钟</Text>
-              </View>
-            </View>
-            <View className="home__stat-item">
-              <Text className="home__stat-icon">🛍️</Text>
-              <Text className="home__stat-label">消耗热量</Text>
-              <View>
-                <Text className="home__stat-value">368</Text>
-                <Text className="home__stat-unit">千卡</Text>
-              </View>
-            </View>
-            <View className="home__stat-item">
-              <Text className="home__stat-icon">📊</Text>
-              <Text className="home__stat-label">训练动作</Text>
-              <View>
-                <Text className="home__stat-value">6</Text>
-                <Text className="home__stat-unit">个</Text>
-              </View>
-            </View>
-            <View className="home__stat-item">
-              <Text className="home__stat-icon">🏆</Text>
-              <Text className="home__stat-label">连续天数</Text>
-              <View>
-                <Text className="home__stat-value">12</Text>
-                <Text className="home__stat-unit">天</Text>
-              </View>
-            </View>
-          </View>
-        </View>
-      </View>
-
-      <View className="home__section">
-        <View className="home__section-head">
-          <Text className="home__section-title g-title">快捷功能</Text>
-        </View>
-        <View className="home__quick-grid">
-          {quickActions.map((item) => (
-            <View
-              className="home__quick-item g-panel"
-              key={item.name}
-              onClick={() => jumpTo(item.route)}
-            >
-              <View
-                className="home__quick-badge"
-                style={{ backgroundColor: item.color }}
-              >
-                <Text className="home__quick-icon">{item.icon}</Text>
-              </View>
-              <Text className="home__quick-name">{item.name}</Text>
-              <Text className="home__quick-tip">{item.tip}</Text>
-            </View>
-          ))}
-        </View>
-      </View>
-
-      <View className="home__section">
-        <View className="home__section-head">
-          <Text className="home__section-title g-title">最近训练</Text>
-          <Text className="home__section-link">全部记录 〉</Text>
+          <Text className='summary-block__hint'>累计时长 360 分钟</Text>
         </View>
 
-        <View className="home__records">
-          {recentRecords.map((item) => (
-            <View className="home__record-item g-panel" key={item.name}>
-              <View className="home__record-left">
+        <View className='summary-trend'>
+          <Text className='summary-block__label'>本周趋势</Text>
+          <View className='trend-bars'>
+            {weeklyTrend.map((value, index) => (
+              <View key={`${value}-${index}`} className='trend-bars__item'>
                 <View
-                  className="home__record-dot"
-                  style={{ backgroundColor: item.color }}
-                >
-                  <Text className="home__record-icon">{item.icon}</Text>
-                </View>
-                <View>
-                  <View className="home__record-name">
-                    <Text>{item.name}</Text>
-                  </View>
-                  <View className="home__record-time">
-                    <Text>{item.time} · {item.duration}</Text>
-                  </View>
-                </View>
+                  className={`trend-bars__bar ${value === 0 ? 'is-empty' : ''}`}
+                  style={{ height: `${28 + value * 18}rpx` }}
+                />
+                <Text className='trend-bars__label'>{['一', '二', '三', '四', '五', '六', '日'][index]}</Text>
               </View>
-              <View>
-                <Text className="home__record-energy">{item.kcal}</Text>
-                <Text className="home__record-energy-unit">千卡</Text>
-              </View>
+            ))}
+          </View>
+        </View>
+      </View>
+
+      <View className='app-card latest-card'>
+        <View className='latest-card__content'>
+          <Text className='section-title latest-card__heading'>最近一次训练</Text>
+          <View className='latest-card__body'>
+            <View className='workout-icon workout-icon--strength'>
+              <Text />
+            </View>
+            <View className='latest-card__text'>
+              <Text className='latest-card__title'>{latestRecord.title}</Text>
+              <Text className='latest-card__meta'>
+                {latestRecord.duration} 分钟 · {latestRecord.type}
+              </Text>
+              <Text className='soft-tag'>{latestRecord.feeling}</Text>
+            </View>
+          </View>
+        </View>
+        <Image className='latest-card__dog' src={coachDog} mode='aspectFill' />
+        <View className='latest-card__date'>
+          <Text>{latestRecord.date}</Text>
+          <Text className='latest-card__chevron'>›</Text>
+        </View>
+      </View>
+
+      <View className='app-card week-card'>
+        <View className='week-card__header'>
+          <Text className='section-title'>本周训练日历</Text>
+          <Text className='week-card__link'>查看日历 ›</Text>
+        </View>
+        <View className='week-calendar'>
+          {calendarWeek.map((day) => (
+            <View key={day.label} className={`week-day week-day--${day.state}`}>
+              <Text className='week-day__label'>{day.label}</Text>
+              <View className='week-day__mark'>{day.state === 'done' ? '✓' : ''}</View>
             </View>
           ))}
         </View>
       </View>
 
-      <TabBar current="home" />
+      <View className='record-button primary-gradient' onClick={goCreate}>
+        <Text className='record-button__plus'>+</Text>
+        <Text>记录一次训练</Text>
+        <Image className='record-button__dog' src={coachDog} mode='aspectFill' />
+      </View>
+
+      <View className='app-card quick-card'>
+        <Text className='section-title quick-card__title'>快速记录</Text>
+        <View className='quick-grid'>
+          {quickActions.map((action) => (
+            <View key={action.label} className={`quick-action quick-action--${action.tone}`}>
+              <View className='quick-action__icon' />
+              <Text>{action.label}</Text>
+            </View>
+          ))}
+        </View>
+      </View>
+
+      <AppTabBar active='home' />
     </View>
   );
-};
-
-export default HomePage;
+}

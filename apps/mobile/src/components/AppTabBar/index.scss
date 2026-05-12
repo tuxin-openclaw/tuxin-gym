@@ -1,0 +1,159 @@
+.app-tabbar {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 30;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: end;
+  height: 146px;
+  padding: 18px 24px calc(18px + env(safe-area-inset-bottom));
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 -10px 28px rgba(17, 24, 39, 0.08);
+  backdrop-filter: blur(18px);
+}
+
+.app-tabbar__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-muted);
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.app-tabbar__icon {
+  position: relative;
+  width: 50px;
+  height: 50px;
+}
+
+.app-tabbar__label {
+  line-height: 1;
+}
+
+.app-tabbar__item.is-active {
+  color: var(--color-brand);
+}
+
+.app-tabbar__item.is-center {
+  transform: translateY(-18px);
+}
+
+.app-tabbar__item.is-center .app-tabbar__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 86px;
+  height: 86px;
+  color: #fff;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #16a34a, #22c55e);
+  box-shadow: 0 14px 30px rgba(34, 197, 94, 0.32);
+}
+
+.app-tabbar__plus {
+  margin-top: -4px;
+  font-size: 64px;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.icon-home::before {
+  position: absolute;
+  inset: 15px 9px 7px;
+  content: '';
+  border-radius: 7px 7px 10px 10px;
+  background: currentColor;
+}
+
+.icon-home::after {
+  position: absolute;
+  top: 4px;
+  left: 8px;
+  width: 34px;
+  height: 34px;
+  content: '';
+  border-radius: 8px;
+  background: currentColor;
+  transform: rotate(45deg);
+}
+
+.icon-calendar {
+  border: 5px solid currentColor;
+  border-radius: 11px;
+}
+
+.icon-calendar::before {
+  position: absolute;
+  top: 12px;
+  right: 7px;
+  left: 7px;
+  content: '';
+  border-top: 4px solid currentColor;
+}
+
+.icon-calendar::after {
+  position: absolute;
+  right: 10px;
+  bottom: 9px;
+  left: 12px;
+  height: 13px;
+  content: '';
+  border-right: 4px solid currentColor;
+  border-bottom: 4px solid currentColor;
+  transform: rotate(40deg);
+}
+
+.icon-chart {
+  border: 5px solid currentColor;
+  border-radius: 10px;
+}
+
+.icon-chart::before {
+  position: absolute;
+  right: 10px;
+  bottom: 12px;
+  left: 10px;
+  height: 15px;
+  content: '';
+  border-left: 4px solid currentColor;
+  border-bottom: 4px solid currentColor;
+  transform: skewX(-18deg);
+}
+
+.icon-chart::after {
+  position: absolute;
+  right: 8px;
+  bottom: 10px;
+  width: 9px;
+  height: 9px;
+  content: '';
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.icon-user::before {
+  position: absolute;
+  top: 3px;
+  left: 14px;
+  width: 22px;
+  height: 22px;
+  content: '';
+  border: 5px solid currentColor;
+  border-radius: 50%;
+}
+
+.icon-user::after {
+  position: absolute;
+  right: 5px;
+  bottom: 2px;
+  left: 5px;
+  height: 25px;
+  content: '';
+  border: 5px solid currentColor;
+  border-bottom: 0;
+  border-radius: 24px 24px 0 0;
+}

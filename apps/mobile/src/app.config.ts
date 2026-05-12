@@ -1,15 +1,18 @@
 export default defineAppConfig({
   pages: [
     'pages/home/index',
-    'pages/training-plans/index',
-    'pages/training-plans/create',
-    'pages/exercises/index'
+    'pages/calendar/index',
+    'pages/records/index',
+    'pages/statistics/index',
+    'pages/profile/index',
+    'pages/record-create/index'
   ],
   window: {
     backgroundTextStyle: 'dark',
-    backgroundColor: '#f4f6fb',
-    navigationBarBackgroundColor: '#f4f6fb',
+    backgroundColor: '#f7f8fa',
+    navigationBarBackgroundColor: '#f7f8fa',
     navigationBarTitleText: '图新健身',
-    navigationBarTextStyle: 'black'
+    navigationBarTextStyle: 'black',
+    navigationStyle: 'custom'
   }
 })

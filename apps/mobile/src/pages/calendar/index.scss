@@ -1,0 +1,125 @@
+.calendar-page__eyebrow {
+  display: block;
+  color: var(--color-brand);
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.calendar-page__title {
+  display: block;
+  margin-top: 10px;
+  font-size: 44px;
+  font-weight: 800;
+}
+
+.month-card {
+  margin-top: 32px;
+  padding: 34px 28px;
+}
+
+.month-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 34px;
+  font-weight: 800;
+}
+
+.month-card__hint {
+  color: var(--color-muted);
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.month-week,
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.month-week {
+  margin-top: 34px;
+  color: var(--color-muted);
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.month-grid {
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.month-day {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 72px;
+  color: var(--color-muted);
+  border-radius: 22px;
+  background: #f8fafc;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.month-day.is-trained {
+  color: var(--color-brand-dark);
+  background: var(--color-brand-soft);
+}
+
+.month-day.is-today {
+  color: #fff;
+  background: var(--color-brand);
+}
+
+.month-day__dot {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  transform: translateX(-50%);
+}
+
+.calendar-list {
+  margin-top: 30px;
+  padding: 32px 28px 10px;
+}
+
+.calendar-record {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.calendar-record:last-child {
+  border-bottom: 0;
+}
+
+.calendar-record__date {
+  width: 92px;
+  color: var(--color-brand);
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.calendar-record__info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.calendar-record__title {
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.calendar-record__meta {
+  color: var(--color-muted);
+  font-size: 24px;
+}
