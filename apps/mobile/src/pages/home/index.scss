@@ -400,8 +400,10 @@
   background: transparent;
 }
 
-.record-button {
+.record-button-container {
   position: relative;
+}
+.record-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -423,12 +425,10 @@
 
 .record-button__dog {
   position: absolute;
-  right: 6px;
-  bottom: -47px;
+  right: 6vw;
+  bottom: 0;
   width: 156px;
-  height: 152px;
-  border-radius: 34px;
-  object-position: 50% 72%;
+  height: auto;
 }
 
 .quick-card {

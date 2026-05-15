@@ -2,7 +2,9 @@ import Taro from '@tarojs/taro';
 import { View, Text, Image } from '@tarojs/components';
 
 import AppTabBar from '../../components/AppTabBar';
-import coachDog from '../../assets/coach-dog.png';
+import coachDog from '../../assets/coach-dog2.png';
+import coachDogHeader from '../../assets/header_dog.png';
+import coachDogButton from '../../assets/button_dog.png';
 import {
   calendarWeek,
   quickActions,
@@ -34,7 +36,7 @@ export default function HomePage() {
       </View>
 
       <View className='coach-zone'>
-        <Image className='coach-zone__dog' src={coachDog} mode='aspectFill' />
+        <Image className='coach-zone__dog' src={coachDogHeader} mode='aspectFill' />
         <View className='coach-zone__bubble'>坚持记录，你会看到更好的自己！</View>
         <View className='coach-zone__shape shape-a' />
         <View className='coach-zone__shape shape-b' />
@@ -116,10 +118,12 @@ export default function HomePage() {
         </View>
       </View>
 
-      <View className='record-button primary-gradient' onClick={goCreate}>
-        <Text className='record-button__plus'>+</Text>
-        <Text>记录一次训练</Text>
-        <Image className='record-button__dog' src={coachDog} mode='aspectFill' />
+      <View className='record-button-container'>
+        <View className='record-button primary-gradient' onClick={goCreate}>
+          <Text className='record-button__plus'>+</Text>
+          <Text>记录一次训练</Text>
+        </View>
+        <Image className='record-button__dog' src={coachDogButton} />
       </View>
 
       <View className='app-card quick-card'>
